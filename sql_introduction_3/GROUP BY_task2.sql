@@ -5,4 +5,4 @@ SELECT
 FROM 
 	Orders
 GROUP BY 
-	item
+	item;

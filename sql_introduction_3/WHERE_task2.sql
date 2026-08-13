@@ -3,4 +3,4 @@ SELECT
 FROM 
 	Orders
 WHERE 
-	amount>1000
+	amount>1000;

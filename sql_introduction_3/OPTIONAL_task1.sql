@@ -9,14 +9,15 @@ INNER JOIN
 	orders o
 ON 
 	c.customer_id=o.customer_id
-INNER JOIN 
-	shippings s
-ON 
-	s.customer=c.customer_id
-WHERE 
-	s.status='Delivered'
+WHERE EXISTS (
+    SELECT 1
+    FROM shippings AS s
+    WHERE s.customer = c.customer_id
+      AND s.status = 'Delivered'
+)
 GROUP BY 
-	c.customer_id
+	c.customer_id,
+	c.country
 HAVING
-	COUNT(o.order_id)>=2
+	COUNT(o.order_id)>=2;
 	
