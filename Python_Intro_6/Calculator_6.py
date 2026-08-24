@@ -1,6 +1,8 @@
 number1 = int(input('Enter the first number: '))
 number2 = int(input('Enter the second number: '))
 action = input('Choose the operator(+,-,*,/): ')
+while action not in('+','-','*','/'):
+    action = input('Invalid input. Try again\n')
 if action == '+':
     result = number1 + number2
 elif action == '-':
