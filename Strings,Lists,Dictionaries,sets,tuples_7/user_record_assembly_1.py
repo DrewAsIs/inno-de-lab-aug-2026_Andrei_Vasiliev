@@ -16,5 +16,5 @@ cleansed_user_record[2]=cleansed_user_record[2].upper()
 #formatting user status
 cleansed_user_record[3]=cleansed_user_record[3].lower()
 #joining and printing
-processed_user_record = "|".join(cleansed_user_record)
+processed_user_record = " | ".join(cleansed_user_record)
 print(f"Нормализованная запись: {processed_user_record}")
