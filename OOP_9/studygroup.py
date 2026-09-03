@@ -30,7 +30,7 @@ class AuditTrainee(Trainee):
 
 class Cohort:
     """
-    Представляет учебную группу учащихся.
+    Представляет учебную группу Team.Inno.
     """
 
     def __init__(
