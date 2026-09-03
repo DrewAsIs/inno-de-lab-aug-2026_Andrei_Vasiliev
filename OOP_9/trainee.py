@@ -1,7 +1,6 @@
 class Trainee:
     """
-    Представляет стажера Team.Inno
-    и позволяет отслеживать его успеваемость.
+    Представляет стажера и позволяет отслеживать его успеваемость.
     """
 
     def __init__(
@@ -12,36 +11,36 @@ class Trainee:
         passing_grade: int = 10
     ) -> None:
         """
-        Создает нового стажера с заданными параметрами.
+        Создает нового стажера.
 
         Args:
             name(str): Имя стажера.
             surname(str): Фамилия стажера.
             score(int): Начальный балл стажера.
-            passing_grade(int): Проходной балл для завершения курса.
+            passing_grade(int): Проходной балл.
 
         Returns:
-            None: Ничего не возвращает.
+            None: Метод ничего не возвращает.
         """
         self.name: str = name
         self.surname: str = surname
         self.passing_grade: int = passing_grade
-        self.__score: int = score
+        self.score: int = score
 
     @property
     def score(self) -> int:
         """
-        Возвращает текущий балл.
+        Возвращает текущий балл стажера.
 
         Returns:
-            int: Текущий балл стажера.
+            int: Текущий балл.
         """
         return self.__score
 
     @score.setter
     def score(self, value: int) -> None:
         """
-        Изменяет балл стажера с проверкой значения.
+        Устанавливает балл с проверкой значения.
 
         Args:
             value(int): Новое значение балла.
@@ -50,7 +49,7 @@ class Trainee:
             None: Метод ничего не возвращает.
 
         Raises:
-            ValueError: Если значение не является типом int
+            ValueError: Если значение не является int
             или является отрицательным.
         """
         if not isinstance(value, int):
@@ -66,19 +65,19 @@ class Trainee:
         self.__score = value
 
     def do_homework(self) -> None:
-        """Увеличивает балл на 1."""
+        """Increases score by 1"""
         self.score += 1
 
     def miss_homework(self) -> None:
-        """Уменьшает балл на 1."""
+        """Decreases score by 1"""
         self.score -= 1
 
     def visit_lecture(self) -> None:
-        """Увеличивает балл на 1."""
+        """Increases score by 1"""
         self.score += 1
 
     def miss_lecture(self) -> None:
-        """Уменьшает балл на 1."""
+        """Decreases score by 1"""
         self.score -= 1
 
     def is_passing(self) -> bool:
@@ -92,28 +91,39 @@ class Trainee:
         return self.score >= self.passing_grade
 
 
-print("=== ПРОВЕРКА УСПЕВАЕМОСТИ СТАЖЕРА ===")
+def run_tests() -> None:
+    """
+    Выполняет тесты класса Trainee.
 
-trainee = Trainee(
-    name="Иван",
-    surname="Иванов",
-    score=9,
-    passing_grade=10
-)
+    Returns:
+        None: Функция ничего не возвращает.
+    """
+    print("=== ПРОВЕРКА УСПЕВАЕМОСТИ СТАЖЕРА ===")
 
-trainee.do_homework()
-print(
-    f"Баллы: {trainee.score}, "
-    f"Прошел курс: {trainee.is_passing()}"
-)
+    trainee = Trainee(
+        name="Иван",
+        surname="Иванов",
+        score=9,
+        passing_grade=10
+    )
 
-trainee.miss_lecture()
-print(
-    f"Баллы: {trainee.score}, "
-    f"Прошел курс: {trainee.is_passing()}"
-)
+    trainee.do_homework()
+    print(
+        f"Баллы: {trainee.score}, "
+        f"Прошел курс: {trainee.is_passing()}"
+    )
 
-try:
-    trainee.score = -5
-except ValueError as error:
-    print(f"Ошибка: {error}")
+    trainee.miss_lecture()
+    print(
+        f"Баллы: {trainee.score}, "
+        f"Прошел курс: {trainee.is_passing()}"
+    )
+
+    try:
+        trainee.score = -5
+    except ValueError as error:
+        print(f"Ошибка: {error}")
+
+
+if __name__ == "__main__":
+    run_tests()

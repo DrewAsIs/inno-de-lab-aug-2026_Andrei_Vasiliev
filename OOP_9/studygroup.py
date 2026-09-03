@@ -1,95 +1,4 @@
-class Trainee:
-    """
-    Представляет стажера Team.Inno
-    и позволяет отслеживать его успеваемость.
-    """
-
-    def __init__(
-        self,
-        name: str,
-        surname: str,
-        score: int = 0,
-        passing_grade: int = 10
-    ) -> None:
-        """
-        Создает нового стажера с заданными параметрами.
-
-        Args:
-            name(str): Имя стажера.
-            surname(str): Фамилия стажера.
-            score(int): Начальный балл стажера.
-            passing_grade(int): Проходной балл для завершения курса.
-
-        Returns:
-            None: Метод ничего не возвращает.
-        """
-        self.name: str = name
-        self.surname: str = surname
-        self.passing_grade: int = passing_grade
-        self.__score: int = score
-
-    @property
-    def score(self) -> int:
-        """
-        Возвращает текущий балл.
-
-        Returns:
-            int: Текущий балл стажера.
-        """
-        return self.__score
-
-    @score.setter
-    def score(self, value: int) -> None:
-        """
-        Изменяет балл стажера с проверкой значения.
-
-        Args:
-            value(int): Новое значение балла.
-
-        Returns:
-            None: Метод ничего не возвращает.
-
-        Raises:
-            ValueError: Если значение не является типом int
-            или является отрицательным.
-        """
-        if not isinstance(value, int):
-            raise ValueError(
-                f"Expected value of type int, got {type(value)}"
-            )
-
-        if value < 0:
-            raise ValueError(
-                "The score shouldn't be less than 0!"
-            )
-
-        self.__score = value
-
-    def do_homework(self) -> None:
-        """Увеличивает балл на 1."""
-        self.score += 1
-
-    def miss_homework(self) -> None:
-        """Уменьшает балл на 1."""
-        self.score -= 1
-
-    def visit_lecture(self) -> None:
-        """Увеличивает балл на 1."""
-        self.score += 1
-
-    def miss_lecture(self) -> None:
-        """Уменьшает балл на 1."""
-        self.score -= 1
-
-    def is_passing(self) -> bool:
-        """
-        Проверяет, набрал ли стажер проходной балл.
-
-        Returns:
-            bool: True, если стажер прошел курс,
-            иначе False.
-        """
-        return self.score >= self.passing_grade
+from trainee import Trainee
 
 
 class HardworkingTrainee(Trainee):
@@ -99,7 +8,7 @@ class HardworkingTrainee(Trainee):
     """
 
     def do_homework(self) -> None:
-        """Увеличивает балл на 2."""
+        """Increases score by 2"""
         self.score += 2
 
 
@@ -119,9 +28,9 @@ class AuditTrainee(Trainee):
         return True
 
 
-class StudyGroup:
+class Cohort:
     """
-    Представляет учебную группу и управляет списком стажеров.
+    Представляет учебную группу учащихся.
     """
 
     def __init__(
@@ -133,9 +42,8 @@ class StudyGroup:
         Создает учебную группу.
 
         Args:
-            title(str): Название учебной группы.
+            title(str): Название группы.
             trainees(list[Trainee] | None): Список учащихся.
-            По умолчанию создается пустой список.
 
         Returns:
             None: Метод ничего не возвращает.
@@ -147,10 +55,10 @@ class StudyGroup:
 
     def add_trainee(self, trainee: Trainee) -> None:
         """
-        Добавляет стажера в учебную группу.
+        Добавляет учащегося в группу.
 
         Args:
-            trainee(Trainee): Стажер, которого нужно добавить.
+            trainee(Trainee): Учащийся для добавления.
 
         Returns:
             None: Метод ничего не возвращает.
@@ -159,7 +67,7 @@ class StudyGroup:
 
     def conduct_lecture(self) -> None:
         """
-        Проводит лекцию для всех стажеров группы.
+        Проводит лекцию для всех учащихся группы.
 
         Returns:
             None: Метод ничего не возвращает.
@@ -169,11 +77,11 @@ class StudyGroup:
 
     def get_passing_students(self) -> list[Trainee]:
         """
-        Возвращает список стажеров, прошедших курс.
+        Возвращает учащихся, прошедших курс.
 
         Returns:
-            list[Trainee]: Список стажеров, у которых
-            метод is_passing() возвращает True.
+            list[Trainee]: Список учащихся,
+            прошедших курс.
         """
         return [
             trainee
@@ -182,49 +90,62 @@ class StudyGroup:
         ]
 
 
-std_trainee = Trainee(
-    "Алексей",
-    "Смирнов",
-    score=8,
-    passing_grade=10
-)
+def run_tests() -> None:
+    """
+    Выполняет тесты задания 2.
 
-hard_trainee = HardworkingTrainee(
-    "Елена",
-    "Петрова",
-    score=8,
-    passing_grade=10
-)
-
-audit_trainee = AuditTrainee(
-    "Дмитрий",
-    "Сидоров",
-    score=0,
-    passing_grade=10
-)
-
-study_group = StudyGroup("Python Advanced")
-
-study_group.add_trainee(std_trainee)
-study_group.add_trainee(hard_trainee)
-study_group.add_trainee(audit_trainee)
-
-study_group.conduct_lecture()
-
-hard_trainee.do_homework()
-
-passing_students = study_group.get_passing_students()
-
-print(f"=== УСПЕВАЕМОСТЬ ГРУППЫ '{study_group.title}' ===")
-
-for student in study_group.trainees:
-    print(
-        f"{student.name} {student.surname} | "
-        f"Баллы: {student.score} | "
-        f"Проходит: {student.is_passing()}"
+    Returns:
+        None: Функция ничего не возвращает.
+    """
+    std_trainee = Trainee(
+        "Алексей",
+        "Смирнов",
+        score=8,
+        passing_grade=10
     )
 
-print("\nУспешно зачислены на следующий модуль:")
+    hard_trainee = HardworkingTrainee(
+        "Елена",
+        "Петрова",
+        score=8,
+        passing_grade=10
+    )
 
-for student in passing_students:
-    print(f"- {student.name} {student.surname}")
+    audit_trainee = AuditTrainee(
+        "Дмитрий",
+        "Сидоров",
+        score=0,
+        passing_grade=10
+    )
+
+    cohort = Cohort("Python Advanced")
+
+    cohort.add_trainee(std_trainee)
+    cohort.add_trainee(hard_trainee)
+    cohort.add_trainee(audit_trainee)
+
+    cohort.conduct_lecture()
+    hard_trainee.do_homework()
+
+    passing_students = cohort.get_passing_students()
+
+    print(
+        f"=== УСПЕВАЕМОСТЬ ГРУППЫ "
+        f"'{cohort.title}' ==="
+    )
+
+    for student in cohort.trainees:
+        print(
+            f"{student.name} {student.surname} | "
+            f"Баллы: {student.score} | "
+            f"Проходит: {student.is_passing()}"
+        )
+
+    print("\nУспешно зачислены на следующий модуль:")
+
+    for student in passing_students:
+        print(f"- {student.name} {student.surname}")
+
+
+if __name__ == "__main__":
+    run_tests()
